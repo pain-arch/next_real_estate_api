@@ -48,7 +48,12 @@ export const login = async (req, res) => {
         if (!passwordMatch) res.status(401).json({ message: "Invalid credentials" });
 
         //generate cookie token and send it to the user
-        // res.setHeader("Set-Cookie", "test=" + "myValue").json({ message: "Logged in" });  ---- Test purpose
+                   // res.setHeader("Set-Cookie", "test=" + "myValue").json({ message: "Logged in" });  ---- Test purpose
+        res.cookie("test2", "myValue2", {
+            httponly: true,
+            //secure: true,
+        }).status(200).json({ message: "Log in Successful" });
+
 
     } catch (error) {
         console.log(error);
