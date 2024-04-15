@@ -7,7 +7,6 @@ export const register = async (req, res) => {
     try {
         //Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(hashedPassword);
 
         //Save user to database
         const newUser = await prisma.user.create({
@@ -18,16 +17,32 @@ export const register = async (req, res) => {
             },
         });
 
-        console.log(newUser);
         res.status(201).json({ message: "User created successfully"});
     } catch (error) {
-        console.log(error);
         res.status(500).json({ message: "Failed to create user" });
     }    
 };
 
-export const login = (req, res) => {
-    console.log("Logging in...");
+
+
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        
+        // Check if the user exists
+        const user = await prisma.user.findUnique({
+            where:{username}
+        })
+        if (!user) res.status(401).json({ message: "Invalid credentials" });
+        
+        // Check if the password is correct
+
+        //generate cookie token and send it to the user
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Failed to login" });
+    }
 };
 
 export const logout = (req, res) => {
