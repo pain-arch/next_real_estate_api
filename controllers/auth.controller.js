@@ -37,6 +37,8 @@ export const login = async (req, res) => {
         if (!user) res.status(401).json({ message: "Invalid credentials" });
         
         // Check if the password is correct
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) res.status(401).json({ message: "Invalid credentials" });
 
         //generate cookie token and send it to the user
     } catch (error) {
