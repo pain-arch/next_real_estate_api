@@ -1,0 +1,3 @@
+to start server for testing :
+
+"console-ninja --watch app.js"
